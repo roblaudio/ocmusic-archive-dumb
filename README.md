@@ -1,33 +1,65 @@
 # Obby Creator Music Audio Dump
 
-35k+ metadata dump for every Obby Creator Music upload.
+35k+ uploads, donations, and group dump for Obby Creator Music.
+
+The dump draws from three sources:
+
+* The [OCMusic/api-archive](https://github.com/OCMusic/api-archive/) repository, dumped to [`raw/ocmusic-data`](./raw/ocmusic-data)
+* A scraper to download all group uploads and metadata, dumped to [`raw/ocmusic-uploads`](./raw/ocmusic-uploads)
+* [A script to fetch all group members](./scripts/group-members.ts), dumped to [`raw/ocmusic-group-members`](./raw/ocmusic-group-members)
+
+From there, [another script](./scripts/process-raw.ts) picks what we needed the
+most from all three sources to form one source of truth, dumped to
+[`dump.json`](./dump.json). This can then be fetched from games like the Obby
+Creator Music browser.
+
+> [!WARNING]
+> The code is bad. It was written in less than an hour.
 
 Decicated to the_xj 💘
 
 ## Exports
 
 ```ts
-export interface DumpUser {
-    name: string,
-    nick: string,
-    id: number,
+// uploads
+export interface DumpUpload {
+  name: string;
+  id: number;
+  createdAt: string;
+  user: number;
 }
 
-export interface DumpStats {
-    favorites: number,
-    plays: number,
-    duration: number,
+// donations
+export interface DumpDonations {
+  funds: number;
+  donatorToAmount: Map<number, number>;
 }
 
-export interface DumpAudio {
-    name: string,
-    id: number,
-    createdAt: string,
-    user: DumpUser,
-    stats: DumpStats,
+// groups
+export interface DumpGroupRole {
+  id: number;
+  rank: number;
+  name: string;
 }
 
-export = DumpAudio[]
+export interface DumpGroupMember {
+  id: number;
+  username: string;
+  role: DumpGroupRole;
+}
+
+export interface DumpGroup {
+  members: DumpGroupMember[];
+  memberCount: number;
+  roles: DumpGroupRole[];
+}
+
+// dump
+export interface Dump {
+  uploads: DumpUpload[];
+  donations: DumpDonations;
+  group: DumpGroup;
+}
 ```
 
 ## License
