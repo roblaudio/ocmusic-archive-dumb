@@ -188,7 +188,7 @@ for (const t of OCMUSIC_DATA.transactions) {
 const processed: Processed = {
   uploads: OCMUSIC_UPLOADS.map(
     ({ name, user, id, createdAt }): ProcessedUpload => {
-      return { name, user: user.id, id, createdAt };
+      return { name, user: user.id, nick: user.nick, id, createdAt };
     },
   ),
   group,
