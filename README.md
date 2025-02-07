@@ -4,67 +4,35 @@
 
 The dump draws from three sources:
 
-* The [OCMusic/api-archive](https://github.com/OCMusic/api-archive/) repository, dumped to [`raw/ocmusic-data`](./raw/ocmusic-data)
+* The [OCMusic/api-archive](https://github.com/OCMusic/api-archive/) repository, dumped to [`ocmusic-api-dump`](./ocmusic-api-dump)
 * A scraper to download all group uploads and metadata, dumped to [`raw/ocmusic-uploads`](./raw/ocmusic-uploads)
 * [A script to fetch all group members](./scripts/group-members.ts), dumped to [`raw/ocmusic-group-members`](./raw/ocmusic-group-members)
 
-From there, [another script](./scripts/process-raw.ts) picks what we needed the
+From there, [another script](./scripts/process.ts) picks what we needed the
 most from all three sources to form one source of truth, dumped to
-[`dump.json`](./dump.json). This can then be fetched from games like the Obby
-Creator Music browser.
+[`v2.json`](./processed/v2.json) for the current Obby Creator Music Audio
+Browser and [`v3.json`](./processed/v3.json) for the upcoming Version 3 of the
+Obby Creator Music Browser along with Roblaudio.
 
-> [!WARNING]
-> The code is bad. It was written in less than an hour.
-
-Decicated to the_xj 💘
-
-## Exports
-
-```ts
-// uploads
-export interface DumpUpload {
-  name: string;
-  id: number;
-  createdAt: string;
-  user: number;
-}
-
-// donations
-export interface DumpDonations {
-  funds: number;
-  donatorToAmount: Map<number, number>;
-}
-
-// groups
-export interface DumpGroupRole {
-  id: number;
-  rank: number;
-  name: string;
-}
-
-export interface DumpGroupMember {
-  id: number;
-  username: string;
-  role: DumpGroupRole;
-}
-
-export interface DumpGroup {
-  members: DumpGroupMember[];
-  memberCount: number;
-  roles: DumpGroupRole[];
-}
-
-// dump
-export interface Dump {
-  uploads: DumpUpload[];
-  donations: DumpDonations;
-  group: DumpGroup;
-}
-```
+The processed dump files can then be fetched from games like the Obby Creator
+Music browser. A dedicated package is planned.
 
 ## License
 
-Licensed under the [Do What The F\*ck You Want To Public License](./LICENSE.md).
+Obby Creator Music was maintained by Roblox users "ImNotFireMan123" and "GABA8."
+All audio files were uploaded by Roblox users prior to the termination of the
+Obby Creator Music group.  We do not make any representations regarding the
+copyright compliance of these user-uploaded audio files. Users are solely
+responsible for ensuring their uploads do not infringe on any copyrights.
+
+We are committed to respecting copyright laws. If you believe that any content
+in the Obby Creator Music Song Browser infringes your copyright, please contact
+us at znotfireman+ocmusiccopyright@gmail.com with specific details. We will
+promptly remove any infringing audio assets and archive them on Roblox,
+rendering it unusable.
+
+All other content in the processed dump files are licensed under the [Do What
+The Fuck You Want To Public License](./LICENSE-WTFPL.md).
 
 <br/>
 

@@ -1,0 +1,3 @@
+[submodule "ocmusic-api-dump"]
+	path = ocmusic-api-dump
+	url = https://github.com/OCMusic/api-archive/
